@@ -1,0 +1,128 @@
+html {
+    position: relative;
+}
+
+body {
+    background:#fff;
+    padding: 300px 15vw 300px 15vw;
+    position: relative;
+}
+footer {
+    font-family: 'PT Serif', sans-serif !important;
+    position: absolute;
+    bottom:10px;
+    left:0;
+    text-align: center;
+    width:100vw;
+    margin:0;
+    padding:0;
+}
+
+h1,
+h2,
+h3 {
+    font-family: 'Oswald', sans-serif;
+    color: #000;
+}
+
+.nav {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    color: black;
+    position: absolute;
+    top: 200px;
+    left: 0;
+    height: 3vw;
+    width: 100%;
+    font-size: 2rem;
+}
+
+.nav ul {
+    list-style: none;
+    padding: none;
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    text-align: center;
+}
+
+.nav ul li {
+    display: inline-block;
+}
+
+.nav a {
+    border-bottom: none;
+    padding: 0 10px;
+    margin: 0 20px;
+    color: #888;
+    position: relative;
+    text-decoration: none;
+}
+
+.nav a:hover {
+    text-decoration: none;
+    border-bottom: none;
+}
+a {
+    color: #000;
+    text-decoration: none;
+}
+
+a:hover {
+    border-bottom: 1px solid #000;
+}
+
+.logo {
+    font-size: 3rem;
+    position: absolute;
+    top: 1em;
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+    left: 50%;
+    transform: translateX(-50%);
+
+}
+
+.logo #logo {
+    height: 120px;
+}
+
+.btn-main {
+    display: inline-block;
+    font-family: 'Oswald', sans-serif;
+    padding: 0 .8rem;
+    margin-left: 1rem;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    border: none;
+    border-radius: .3rem;
+    background-color: #ccc;
+    font-size: 1.4rem;
+    cursor: pointer;
+}
+
+.btn-main:hover {
+    background-color: #000;
+    color: #fff;
+}
+
+p {
+    font-family: 'PT Serif', serif;
+    font-size: 1.3rem;
+    color: #000;
+}
+
+input, textarea {
+    display: inline-block;
+    font-family: 'PT Serif', serif;
+    font-size: 1.3rem;
+    padding: 1em;
+    margin: 0 auto;
+    border: 1px solid #aaa;
+}
+
+input:focus, textarea:focus {
+    border: 1px solid #000;
+    outline: none;
+}
