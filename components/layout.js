@@ -1,17 +1,13 @@
 import Header from './header';
 import Footer from './footer';
-
-const layout = {
-  margin: 20,
-  padding: 20,
-  border: '1px solid #DDD'
-};
+import { AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 const Layout = props => (
-  <div style={layout}>
-    <Header />
-    {props.children}
-    <Footer />
+  <div>
+      <Header />
+        {props.children}
+      <Footer />
   </div>
 );
 
