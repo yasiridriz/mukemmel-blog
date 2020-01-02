@@ -36,7 +36,7 @@ const Post =  props => (
 );
 
 Post.getInitialProps = async ({ req, query }) => {
-  const res = await fetch(`http://localhost:4000/api/${query.id}`, {
+  const res = await fetch(`http://api-yasiridriz.herokuapp.com/api/${query.id}`, {
     method: 'get',
     dataType: 'json',
     headers: {

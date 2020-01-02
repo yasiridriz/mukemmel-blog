@@ -33,7 +33,7 @@ export default function Contact() {
     const [message, setMessage] = useState('');
     const handleSubmit = (event) => {
         event.preventDefault();
-        axioswal.post('http://localhost:4000/api/sendmail', {
+        axioswal.post('http://api-yasiridriz.herokuapp.com/api/sendmail', {
             name: name,
             email: email,
             message: message,
