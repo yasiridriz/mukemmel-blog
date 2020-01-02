@@ -5,6 +5,8 @@
 /.pnp
 .pnp.js
 
+#api
+/backend
 
 # testing
 /coverage
@@ -12,9 +14,6 @@
 # next.js
 /.next/
 /out/
-
-# backend
-/backend
 
 # production
 /build
