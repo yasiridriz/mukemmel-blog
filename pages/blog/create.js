@@ -34,7 +34,7 @@ const CreatePost = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        axioswal.post('http://api-yasiridriz.herokuapp.com/api/add', {
+        axioswal.post('https://api-yasiridriz.herokuapp.com/api/add', {
             title: title,
             content: content,
             subtitle: subtitle
