@@ -1,4 +1,3 @@
-import Layout from '../components/layout';
 import Link from 'next/link';
 import fetch from 'isomorphic-unfetch';
 import { motion } from 'framer-motion';
@@ -26,29 +25,29 @@ const contentVariants = {
 }
 
 const truncate = function (str) {
-  return str.length > 160 ? str.substring(0, 160) + "..." : str;
+  return str.length > 80 ? str.substring(0, 80) + "..." : str;
 }
 
 
 const PostList = props => (
   <motion.div initial="initial" animate="enter" exit="exit" variants={titleVariants} className="containter">
-    <Link href="/blog/create"><a className="btn-main"><span className="fab fa"></span>Write a post</a></Link>
-    <motion.h1 initial="initial" animate="enter" exit="exit" variants={titleVariants} className="bigtitle"><span>Blog Posts</span></motion.h1>
+    <Link href="/blog/create"><a className="btn-main noborder"><span className="fab fa"></span>Write a post</a></Link>
+    <motion.h1 initial="initial" animate="enter" exit="exit" variants={titleVariants} className="bigtitle"><span>Blog</span></motion.h1>
     <motion.div initial="initial" animate="enter" exit="exit" variants={{ initial: { scale: 1.07, y: 0, opacity: 0 }, enter: { scale: 1, y: 0, opacity: 1, transition: { duration: .7, ease: [0.48, 0.15, 0.25, 0.96], staggerChildren: 0.2 } }, }} >
       {props.data.map(post => (
-        <Link href="/blog/[id]" as={`/blog/${post._id}`}>
-          <a class="noborder">
+        <Link href="/blog/[id]" as={`/blog/${post._id}`} key={post.id}>
+          <a className="noborder">
             <motion.div initial="initial" animate="enter" exit="exit" variants={contentVariants} key={post._id} className="postItem row">
               <div className="col-md-4" >
-                <img src="##">
+                <img src="/static/images/blog/logo.svg">
                 </img>
               </div>
               <div className="col-md-8">
                 <h2>{truncate(post.title)}</h2>
                 <span className="updated">- {moment(post.updated).fromNow()}</span>
 
-                <p style={{ color: "#444" }}>{truncate(post.subtitle)}</p>
-                <p><a className="doubledLink">Read more <span className="shift">&rarr;</span></a></p>
+                <p style={{ color: "#444" }}>{truncate(post.content)}</p>
+                <p><a className="doubledLink">Read more <span className="shift" >&rarr;</span></a></p>
               </div>
               
             </motion.div>
@@ -60,7 +59,7 @@ const PostList = props => (
 );
 
 PostList.getInitialProps = async function () {
-  const res = await fetch('https://api-yasiridriz.herokuapp.com/api', {
+  const res = await fetch('http://localhost:4000/api/', {
     method: 'get',
     dataType: 'json',
     headers: {

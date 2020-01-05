@@ -33,7 +33,7 @@ export default function Contact() {
     const [message, setMessage] = useState('');
     const handleSubmit = (event) => {
         event.preventDefault();
-        axioswal.post('https://api-yasiridriz.herokuapp.com/api/sendmail', {
+        axioswal.post('http://localhost:4000/api/sendmail', {
             name: name,
             email: email,
             message: message,
@@ -48,14 +48,14 @@ export default function Contact() {
     }
     return (
         <motion.div initial="initial" animate="enter" exit="exit" variants={titleVariants} className="box">
-            <motion.h3  initial="initial" animate="enter" exit="exit" variants={titleVariants} className="title">Contact with me</motion.h3>
+            <motion.h3  initial="initial" animate="enter" exit="exit" variants={titleVariants} className="title">Get in touch</motion.h3>
             <motion.p initial="initial" animate="enter" exit="exit" variants={contentVariants}>
                 If you need to get in touch with me send me an email to <a href="mailto:yasiridriz@gmail.com"
                 >yasiridriz@gmail.com</a>, or send a message directly from below:
                     </motion.p>
             <motion.div className="row" initial="initial" animate="enter" exit="exit" variants={contentVariants}>
-                <div className="form-box col-md-6">
-                    <form onSubmit={handleSubmit} method="POST" action="/contact">
+                <div className="form-box col-md-12">
+                    <form onSubmit={handleSubmit} method="POST" action="/contact" className="form-box">
                         <div className="group">
                             <input type="text" value={name}
                                 onChange={e => setName(e.target.value)} className="input-default" required />
@@ -72,7 +72,9 @@ export default function Contact() {
                             <label>Message</label>
                         </div>
                         <div className="group">
-                            <input type="submit" value="Send" className="btn-main" />
+                            <button type="submit" className="btn-main" >
+                                Send <span class="far fa-paper-plane"></span>
+                            </button>
                         </div>
                     </form>
                 </div>

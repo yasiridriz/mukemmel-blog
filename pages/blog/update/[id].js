@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axioswal from 'axioswal';
 import Router from 'next/router';
 import { Editor } from '@tinymce/tinymce-react';
 import { motion } from 'framer-motion';
+import fetch from 'isomorphic-unfetch';
 
 
 const titleVariants = {
@@ -27,33 +28,32 @@ const contentVariants = {
 }
 
 
-const CreatePost = () => {
-    const [title, setTitle] = useState('');
-    const [content, setContent] = useState('');
+const Update = props => {
+
+    const [title, setTitle] = useState(props.post.title);
+    const [content, setContent] = useState(props.post.content);
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        axioswal.post('http://localhost:4000/api/add', {
+        axioswal.post(`http://localhost:4000/api/update/${props.post._id}`, {
             title: title,
             content: content,
         }).then((data) => {
             if (data.status === 'ok') {
             }
-            Router.push('/blog')
+            Router.push(`/blog/${props.post._id}`)
         }).catch((err) => {
             console.log("Api call unsucessfull", err);
         })
     };
-    const uploadFile = (event) => {
 
-    }
 
     return (
 
         <motion.div initial="initial" animate="enter" exit="exit" variants={titleVariants} className="box">
 
             <motion.h3 initial="initial" animate="enter" exit="exit" variants={titleVariants} className="title">
-                <span>New Post:</span>
+                <span>Write a new blog post:</span>
             </motion.h3>
             <motion.div initial="initial" animate="enter" exit="exit" variants={contentVariants} className="form-box">
                 <form onSubmit={handleSubmit} className="form-box">
@@ -61,11 +61,11 @@ const CreatePost = () => {
                         <div className="col-md-12">
                             <div className="group">
                                 <input className="input-default" type="text" value={title}
-                                    onChange={e => setTitle(e.target.value)} required />
+                                    onChange={e => {setTitle(e.target.value);}} required />
                                 <label htmlFor="title">Title</label>
                             </div>
                             <div className="group" style={{ "background": "#f1f1f1" }}>
-                                <input type="file" className="browse-btn" onChange={uploadFile} accept=".epub, application/pdf" name="file" />
+                                <input type="file" className="browse-btn" accept=".epub, application/pdf" name="file" />
                                 <div className="browse-btn">
                                     Upload banner
                                     </div>
@@ -96,7 +96,7 @@ const CreatePost = () => {
                                 <div className="">
                                     <textarea
                                         value={content}
-                                        onChange={e => setContent(e.target.value)} className="input-default" style={{ "width": "100%" }}>
+                                        onChange={e => {setContent(e.target.value);}} className="input-default" style={{ "width": "100%" }}>
 
                                     </textarea>
                                 </div>
@@ -115,7 +115,25 @@ const CreatePost = () => {
 
     );
 };
+Update.getInitialProps = async ({ req, query }) => {
+    // http://localhost:4000/api/
+    // https://api-yasiridriz.herokuapp.com/api/
+    const res = await fetch(`http://localhost:4000/api/${query.id}`, {
+        method: 'get',
+        dataType: 'json',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    });
+    const data = await res.json()
 
+    console.log(data);
 
-export default CreatePost;
+    return {
+        post: data
+    };
+};
+
+export default Update;
 

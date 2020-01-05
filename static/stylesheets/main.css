@@ -14,18 +14,23 @@
     -moz-box-sizing: border-box;
     /* Firefox, other Gecko */
     box-sizing: border-box;
+    outline: none;
 }
 
 html {
     background-color: #fed500;
     position: relative;
+    z-index: -2;
+    padding:0;
 }
 
 body {
     background: #fff;
-    padding: 300px 15vw 300px 15vw;
-    margin: 5px;
+    padding: 300px 15% 300px 15%;
     position: relative;
+    z-index: -2;
+    margin:5px;
+
 }
 
 footer {
@@ -51,7 +56,7 @@ footer {
     }
 }
 
-h1,
+
 h2,
 h3 {
     font-family: 'Playfair Display', serif;
@@ -154,6 +159,7 @@ h3 {
 .nav a:hover::before {
     max-height: 100%;
 }
+
 a {
     border-bottom: 1px solid #000;
     color: #000;
@@ -170,21 +176,28 @@ a:hover {
     padding-bottom: .1em;
     text-decoration: none;
 }
+
 a.noborder {
     border-bottom: 0;
 }
+
 a.noborder:hover {
-    background-size:0;
+    background-size: 0;
 }
 
 
 .shift {
     display: inline-block;
     transition: all .25s cubic-bezier(0.19, 1, 0.22, 1);
+
 }
 
 a:hover .shift {
     transform: translateX(7px);
+}
+
+a:hover .shift.extlink {
+    transform: translate(7px, -7px);
 }
 
 a:hover .doubledLink {
@@ -196,6 +209,7 @@ a:hover .doubledLink {
     padding-bottom: .1em;
     text-decoration: none;
 }
+
 .logo {
     font-size: 3rem;
     position: absolute;
@@ -214,7 +228,7 @@ a:hover .doubledLink {
 }
 
 .bigtitle {
-    font-family: 'Oswald', 'Impact', condensed;
+    font-family: 'Oswald', Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     letter-spacing: .03rem;
     font-weight: 700;
     line-height: .08em;
@@ -232,26 +246,47 @@ a:hover .doubledLink {
 
 .btn-main {
     display: inline-block;
-    font-family: 'Oswald', 'Impact', condensed;
+    font-family: 'Oswald', Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     padding: 0 .8rem;
     margin-left: 1rem;
     height: 2.5rem;
-    line-height: 2.5rem;
-    border: none;
+    border: 2px transparent solid;
     border-radius: .3rem;
     background-color: #fed500;
     font-size: 1.4rem;
     cursor: pointer;
+    outline: none;
+}
+
+.btn:hover {
+    outline: none;
+}
+
+.btn-main.noborder {
+    border-bottom: 2px solid transparent;
 }
 
 .btn-main:hover {
-    background-color: #000;
-    color: #fff;
+    background-color: #f1c900;
+    outline: none;
+
+}
+
+.btn-main:active,
+.btn:active {
+    border-color: #000;
+    color: #000;
+    outline: none;
+}
+
+.btn-main:focus,
+.btn:focus {
+    outline: none;
 }
 
 .btn-second {
     display: inline-block;
-    font-family: 'Oswald', 'Impact', condensed;
+    font-family: 'Oswald', Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     padding: 0 .8rem;
     margin-left: 1rem;
     height: 2.5rem;
@@ -293,6 +328,7 @@ a:hover .doubledLink {
     border: 3px #fed500 solid;
     position: relative;
     margin: 2em auto;
+    display: block;
     width: 100%;
 }
 
@@ -304,9 +340,17 @@ a:hover .doubledLink {
     padding: 5px;
     background: #fff;
     color: #000;
-    font-family: "Oswald", 'Impact', condensed;
+    font-family: 'Oswald', Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-weight: 700;
     text-transform: uppercase;
+}
+
+.title.right {
+    right: 5px;
+}
+
+.title a {
+    text-transform: lowercase;
 }
 
 
@@ -322,6 +366,7 @@ p {
     padding: 1em;
     border: 4px transparent solid;
     position: relative;
+    background-color:#fff;
 }
 
 .postItem:hover {
@@ -330,23 +375,209 @@ p {
 }
 
 .postItem h2 {
-    font-family: 'PT Serif', serif;
+    font-family: 'Playfair Display', serif;
     font-weight: 700;
     vertical-align: top;
 }
+
 .postItem .updated {
     display: inline-block;
     transform: translateY(-1em);
 }
-.postItem .col-md-4{
+
+.postItem .col-md-4 {
     position: relative;
-    padding:0 1em 0 0 ;
+    padding: 0 1em 0 0;
 }
+
 .postItem img {
     display: block;
     position: absolute;
-    max-width:100%;
-    max-height:100%;
+    max-width: 100%;
+    max-height: 100%;
     top: 50%;
     transform: translateY(-50%);
 }
+
+.project-box {
+    position: relative;
+
+}
+
+.project-box img {
+    width: 60%;
+    height: 60%;
+    margin-top: -8%;
+    margin-left: -10%;
+    box-shadow: #000 10px 10px;
+    transition: all .2s;
+    display: block;
+}
+
+.project-box:hover img {
+    box-shadow: #000 15px 15px;
+    width: 61%;
+    height: 61%;
+}
+
+.project-box p {
+    position: absolute;
+    right: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+    display: block;
+    width: 40%;
+    font-size: 2.5vw;
+    font-family: 'Playfair Display', serif;
+}
+
+.post-containter {
+    width: 70%;
+    display: block;
+    margin: 0 auto;
+}
+
+.post-containter h1 {
+    letter-spacing: .05em;
+    text-align: center;
+    border-bottom: 2px #000 solid;
+    padding-bottom: 1em;
+}
+
+.post-containter p {
+    line-height: 2.2rem;
+    font-weight: 300;
+    letter-spacing: .04em;
+}
+
+.inlinebuttons p {
+    display: inline-block;
+}
+
+.landing.container:nth-child(odd), .postItem:nth-child(odd) {
+    margin-left:-10%;
+}
+.landing.container:nth-child(even), .postItem:nth-child(even) {
+    margin-right:-10%;
+}
+.landing {
+    position: relative;
+    min-width: 100%;
+    top: 0;
+    left: 0;
+    display: block;
+}
+
+.landing .name {
+    color: #fff;
+    text-shadow: 1px 1px #000,
+        2px 2px #000,
+        3px 3px #000;
+}
+
+.landing .message:hover .name {
+    top: -3px;
+    left: -3px;
+    text-shadow: 1px 1px #000,
+        2px 2px #000,
+        3px 3px #000,
+        4px 4px #000,
+        5px 5px #000,
+        6px 6px #000;
+}
+
+.react-rotating-text-cursor {
+    animation: blinking-cursor 0.8s cubic-bezier(0.68, 0.01, 0.01, 0.99) 0s infinite;
+}
+
+@keyframes blinking-cursor {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+.landing .message {
+    -webkit-text-stroke-width: 2px;
+    -moz-text-stroke-width: 2px;
+    -webkit-text-stroke-color: #000;
+    -moz-text-stroke-color: #000;
+    color: #fed500;
+    display: block;
+    margin: 0 auto;
+    position: relative;
+    top:10%;
+    transform:translateY(-50%);
+    left:5%;
+    font-size: 4rem;
+    font-family: 'Oswald', Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: 700;
+    transition: all .25s;
+    cursor: default;
+}
+.landing .message:hover {
+    color:transparent;
+    text-shadow: 4px 4px #fed500;
+
+}
+.landing .sigcontainer {
+    display: block;
+    position: absolute;
+    right:0;
+    bottom:5%;
+}
+.landing .svg.signature {
+    width:600px !important;
+    height:400px !important;
+    top:0;
+}
+
+svg.signature {
+    width: 300px;
+    height: 200px;
+    bottom: 1em;
+    position: fixed;
+    right: 1em;
+    z-index: -1;
+}
+
+path.signature {
+    fill: none;
+    stroke: #00000033;
+    stroke-width: 20;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-miterlimit: 20;
+    width: 100px;
+    height: 100px;
+}
+
+/* give the vectors a dashed stroke */
+.stroke {
+    stroke-dasharray: 31690;
+    animation: write 4s linear forwards;
+}
+
+
+/*  keyframes */
+@keyframes write {
+    0% {
+        stroke-dashoffset: 31690;
+        stroke-width: 20;
+        fill: transparent;
+    }
+
+    100% {
+        stroke-dashoffset: 0;
+        stroke-width: 20;
+        fill: #00000022;
+    }
+}
+
