@@ -39,7 +39,7 @@ const Post = props => {
       confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.value) {
-        axioswal.post(`http://localhost:4000/api/delete/${props.post._id}`, {
+        axioswal.post(`https://api-yasiridriz.herokuapp.com/api/delete/${props.post._id}`, {
         }).then((data) => {
           if (data.status === "ok") {
 

@@ -35,7 +35,7 @@ const Update = props => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        axioswal.post(`http://localhost:4000/api/update/${props.post._id}`, {
+        axioswal.post(`https://api-yasiridriz.herokuapp.com/api/update/${props.post._id}`, {
             title: title,
             content: content,
         }).then((data) => {
