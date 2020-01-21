@@ -376,6 +376,7 @@ p {
     font-weight: 700;
     vertical-align: top;
 }
+
 .postItem .updated {
     display: inline-block;
     transform: translateY(-1em);

@@ -32,7 +32,7 @@ const CreatePost = () => {
     const [content, setContent] = useState('');
     const handleSubmit = (event) => {
         event.preventDefault();
-        axioswal.post('http://localhost:4000/api/add', {
+        axioswal.post('https://api-yasiridriz.herokuapp.com/api/add', {
             title: title,
             banner: banner,
             content: content,

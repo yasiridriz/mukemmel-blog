@@ -35,7 +35,7 @@ const Update = props => {
     const [banner, setBanner] = useState(props.post.banner);
     const handleSubmit = (event) => {
         event.preventDefault();
-        axioswal.post(`http://localhost:4000/api/update/${props.post._id}`, {
+        axioswal.post(`https://api-yasiridriz.herokuapp.com/api/update/${props.post._id}`, {
             title: title,
             content: content,
         }).then((data) => {
@@ -107,7 +107,7 @@ const Update = props => {
 Update.getInitialProps = async ({ req, query }) => {
     // http://localhost:4000/api/
     // https://api-yasiridriz.herokuapp.com/api/
-    const res = await fetch(`http://localhost:4000/api/${query.id}`, {
+    const res = await fetch(`https://api-yasiridriz.herokuapp.com/api/${query.id}`, {
         method: 'get',
         dataType: 'json',
         headers: {

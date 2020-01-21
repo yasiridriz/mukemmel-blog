@@ -35,7 +35,7 @@ export default function Contact() {
     const handleSubmit = (event) => {
         event.preventDefault();
         axioswal({
-            url: 'http://localhost:4000/api/sendmail',
+            url: 'https://api-yasiridriz.herokuapp.com/api/sendmail',
             method: 'POST',
             data: {
                 name: name,

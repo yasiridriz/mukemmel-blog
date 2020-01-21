@@ -39,7 +39,7 @@ const Post = props => {
       confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.value) {
-        axioswal.post(`http://localhost:4000/api/delete/${props.post._id}`, {
+        axioswal.post(`https://api-yasiridriz.herokuapp.com/api/delete/${props.post._id}`, {
         }).then((data) => {
           if (data.status === "ok") {
 
@@ -80,7 +80,7 @@ const Post = props => {
 Post.getInitialProps = async ({ req, query }) => {
   // http://localhost:4000/api/
   // https://api-yasiridriz.herokuapp.com/api/
-  const res = await fetch(`http://localhost:4000/api/${query.id}`, {
+  const res = await fetch(`https://api-yasiridriz.herokuapp.com/api/${query.id}`, {
     method: 'get',
     dataType: 'json',
     headers: {
