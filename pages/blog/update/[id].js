@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axioswal from 'axioswal';
 import Router from 'next/router';
-import { Editor } from '@tinymce/tinymce-react';
+import CKEditor from "ckeditor4-react";
 import { motion } from 'framer-motion';
 import fetch from 'isomorphic-unfetch';
 
@@ -32,10 +32,10 @@ const Update = props => {
 
     const [title, setTitle] = useState(props.post.title);
     const [content, setContent] = useState(props.post.content);
-
+    const [banner, setBanner] = useState(props.post.banner);
     const handleSubmit = (event) => {
         event.preventDefault();
-        axioswal.post(`https://api-yasiridriz.herokuapp.com/api/update/${props.post._id}`, {
+        axioswal.post(`http://localhost:4000/api/update/${props.post._id}`, {
             title: title,
             content: content,
         }).then((data) => {
@@ -61,45 +61,34 @@ const Update = props => {
                         <div className="col-md-12">
                             <div className="group">
                                 <input className="input-default" type="text" value={title}
-                                    onChange={e => {setTitle(e.target.value);}} required />
+                                    onChange={e => { setTitle(e.target.value); }} required />
                                 <label htmlFor="title">Title</label>
                             </div>
-                            <div className="group" style={{ "background": "#f1f1f1" }}>
+                            {/* <div className="group" style={{ "background": "#f1f1f1" }}>
                                 <input type="file" className="browse-btn" accept=".epub, application/pdf" name="file" />
                                 <div className="browse-btn">
                                     Upload banner
                                     </div>
                                 <span className="file-info">...</span>
+                            </div> */}
+                            <div className="group">
+                                <input className="input-default" type="text" value={banner}
+                                    onChange={e => { setBanner(e.target.value); }} required />
+                                <label htmlFor="banner">Banner</label>
                             </div>
                             <br />
                             <div className="">
-                                {/* <Editor
-                                    apiKey="7tco5d3idohdbxvmngt5609efdencizdttpom2u3psj2bil1"
-                                    initialValue=""
-                                    value={content}
-                                    onEditorChange={e => setContent(e.target.value)}
-                                    init={{
-                                        height: 500,
-                                        menubar: false,
-                                        plugins: [
-                                            'advlist autolink lists link image charmap print preview anchor',
-                                            'searchreplace visualblocks code fullscreen',
-                                            'insertdatetime media table paste code help wordcount'
-                                        ],
-                                        toolbar:
-                                            'undo redo | formatselect | bold italic backcolor | \
-                                            alignleft aligncenter alignright alignjustify | \
-                                            bullist numlist outdent indent | removeformat | image',
-                                        font_formats: 'PT Serif=PT Serif,serif; Courier New=courier new,courier,monospace;'
-                                    }}
-                                /> */}
-                                <div className="">
+                                <CKEditor
+                                    data={content}
+                                    onChange={e => setContent(e.editor.getData())}
+                                />
+                                {/* <div className="">
                                     <textarea
                                         value={content}
                                         onChange={e => {setContent(e.target.value);}} className="input-default" style={{ "width": "100%" }}>
 
                                     </textarea>
-                                </div>
+                                </div> */}
 
 
                             </div>

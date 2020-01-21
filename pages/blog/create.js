@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import axioswal from 'axioswal';
 import Router from 'next/router';
-import { Editor } from '@tinymce/tinymce-react';
 import { motion } from 'framer-motion';
-
+import CKEditor from "ckeditor4-react";
 
 const titleVariants = {
     initial: { scale: 1.07, y: 0, opacity: 0 },
@@ -28,13 +27,14 @@ const contentVariants = {
 
 
 const CreatePost = () => {
-    const [title, setTitle] = useState('');
+    const [title, setTitle] = useState(''); 
+    const [banner, setBanner] = useState('');
     const [content, setContent] = useState('');
-
     const handleSubmit = (event) => {
         event.preventDefault();
-        axioswal.post('https://api-yasiridriz.herokuapp.com/add', {
+        axioswal.post('http://localhost:4000/api/add', {
             title: title,
+            banner: banner,
             content: content,
         }).then((data) => {
             if (data.status === 'ok') {
@@ -51,7 +51,6 @@ const CreatePost = () => {
     return (
 
         <motion.div initial="initial" animate="enter" exit="exit" variants={titleVariants} className="box">
-
             <motion.h3 initial="initial" animate="enter" exit="exit" variants={titleVariants} className="title">
                 <span>New Post:</span>
             </motion.h3>
@@ -64,42 +63,32 @@ const CreatePost = () => {
                                     onChange={e => setTitle(e.target.value)} required />
                                 <label htmlFor="title">Title</label>
                             </div>
-                            <div className="group" style={{ "background": "#f1f1f1" }}>
+                            <div className="group">
+                                <input className="input-default" type="text" value={banner}
+                                    onChange={e => setBanner(e.target.value)} required />
+                                <label htmlFor="banner">Banner</label>
+                            </div>
+                            {/* <div className="group" style={{ "background": "#f1f1f1" }}>
                                 <input type="file" className="browse-btn" onChange={uploadFile} accept=".epub, application/pdf" name="file" />
                                 <div className="browse-btn">
                                     Upload banner
                                     </div>
                                 <span className="file-info">...</span>
-                            </div>
+                            </div> */}
                             <br />
                             <div className="">
-                                {/* <Editor
-                                    apiKey="7tco5d3idohdbxvmngt5609efdencizdttpom2u3psj2bil1"
-                                    initialValue=""
-                                    value={content}
-                                    onEditorChange={e => setContent(e.target.value)}
-                                    init={{
-                                        height: 500,
-                                        menubar: false,
-                                        plugins: [
-                                            'advlist autolink lists link image charmap print preview anchor',
-                                            'searchreplace visualblocks code fullscreen',
-                                            'insertdatetime media table paste code help wordcount'
-                                        ],
-                                        toolbar:
-                                            'undo redo | formatselect | bold italic backcolor | \
-                                            alignleft aligncenter alignright alignjustify | \
-                                            bullist numlist outdent indent | removeformat | image',
-                                        font_formats: 'PT Serif=PT Serif,serif; Courier New=courier new,courier,monospace;'
-                                    }}
-                                /> */}
-                                <div className="">
-                                    <textarea
-                                        value={content}
-                                        onChange={e => setContent(e.target.value)} className="input-default" style={{ "width": "100%" }}>
+                                <CKEditor
+                                    data={content}
+                                    onChange={e => setContent(e.editor.getData())}
+                                />
+                                {/*                                 
+                                // <div className="">
+                                //     <textarea
+                                //         value={content}
+                                //         onChange={e => setContent(e.target.value)} className="input-default" style={{ "width": "100%" }}>
 
-                                    </textarea>
-                                </div>
+                                //     </textarea>
+                                // </div> */}
 
 
                             </div>

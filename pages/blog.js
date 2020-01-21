@@ -39,17 +39,16 @@ const PostList = props => (
           <a className="noborder">
             <motion.div initial="initial" animate="enter" exit="exit" variants={contentVariants} key={post._id} className="postItem row">
               <div className="col-md-4" >
-                <img src="/static/images/blog/logo.svg">
+                <img src={post.banner}>
                 </img>
               </div>
               <div className="col-md-8">
+
                 <h2>{truncate(post.title)}</h2>
                 <span className="updated">- {moment(post.updated).fromNow()}</span>
-
-                <p style={{ color: "#444" }}>{truncate(post.content)}</p>
-                <p><a className="doubledLink">Read more <span className="shift" >&rarr;</span></a></p>
+                <p><a style={{ "right": "15px", "bottom": "10px", "position": "absolute" }} className="doubledLink">Read more <span className="shift" >&rarr;</span></a></p>
               </div>
-              
+
             </motion.div>
           </a>
         </Link>
@@ -59,7 +58,7 @@ const PostList = props => (
 );
 
 PostList.getInitialProps = async function () {
-  const res = await fetch('https://api-yasiridriz.herokuapp.com/api/', {
+  const res = await fetch('http://localhost:4000/api/', {
     method: 'get',
     dataType: 'json',
     headers: {

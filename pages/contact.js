@@ -7,15 +7,15 @@ import { motion } from 'framer-motion';
 
 const titleVariants = {
     initial: { scale: 1.07, y: 0, opacity: 0 },
-    enter: { scale: 1, y: 0, opacity: 1, transition: { duration: .7, ease: [0.48, 0.15, 0.25, 0.96], when: "beforeChildren", delay: 0.2  } },
+    enter: { scale: 1, y: 0, opacity: 1, transition: { duration: .7, ease: [0.48, 0.15, 0.25, 0.96], when: "beforeChildren", delay: 0.2 } },
     exit: {
         scale: 0.6,
         y: 100,
         opacity: 0,
         transition: { duration: 0.25, ease: [0.48, 0.15, 0.25, 0.96] }
     }
-  };
-  const contentVariants = {
+};
+const contentVariants = {
     initial: { scale: 1, y: 60, opacity: 0 },
     enter: { scale: 1, y: 0, opacity: 1, transition: { duration: 0.6, ease: [0.48, 0.15, 0.25, 0.96], staggerChildren: 0.5 } },
     exit: {
@@ -24,31 +24,35 @@ const titleVariants = {
         opacity: 0,
         transition: { duration: 0.25, ease: [0.48, 0.15, 0.25, 0.96] }
     },
-  }
+}
 
 
 export default function Contact() {
+
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
     const handleSubmit = (event) => {
         event.preventDefault();
-        axioswal.post('http://localhost:4000/api/sendmail', {
-            name: name,
-            email: email,
-            message: message,
-
+        axioswal({
+            url: 'http://localhost:4000/api/sendmail',
+            method: 'POST',
+            data: {
+                name: name,
+                email: email,
+                message: message
+            },
         }).then((data) => {
             if (data.status === 'ok') {
-                Router.push('/');
             }
         }).catch((err) => {
             console.log("Api call unsucessfull", err);
         })
-    }
+    };
+
     return (
         <motion.div initial="initial" animate="enter" exit="exit" variants={titleVariants} className="box">
-            <motion.h3  initial="initial" animate="enter" exit="exit" variants={titleVariants} className="title">Get in touch</motion.h3>
+            <motion.h3 initial="initial" animate="enter" exit="exit" variants={titleVariants} className="title">Get in touch</motion.h3>
             <motion.p initial="initial" animate="enter" exit="exit" variants={contentVariants}>
                 If you need to get in touch with me send me an email to <a href="mailto:yasiridriz@gmail.com"
                 >yasiridriz@gmail.com</a>, or send a message directly from below:

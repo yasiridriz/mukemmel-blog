@@ -39,7 +39,7 @@ const Post = props => {
       confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.value) {
-        axioswal.post(`https://api-yasiridriz.herokuapp.com/api/delete/${props.post._id}`, {
+        axioswal.post(`http://localhost:4000/api/delete/${props.post._id}`, {
         }).then((data) => {
           if (data.status === "ok") {
 
@@ -66,11 +66,12 @@ const Post = props => {
       </div>
 
       <div>
-        <h1> {props.post.title} </h1>
+        <img className="banner" src={props.post.banner}></img>
+        <h1 className="title"> {props.post.title} </h1>
         <h4 style={{ "font": "'PT Serif', serif", "color": "#555" }}> {props.post.subtitle}</h4>
-        <p>
-          {props.post.content}
-        </p>
+        <div dangerouslySetInnerHTML={{__html: props.post.content}} class="postContent">
+          
+        </div>
       </div>
     </motion.div>
   )
