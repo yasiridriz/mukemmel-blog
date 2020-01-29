@@ -1,6 +1,8 @@
 import Link from './activelink';
 import Router from 'next/router';
 import { motion } from 'framer-motion';
+import { connect } from 'react-redux';
+import actions from '../redux/action'
 
 const logoVariants = {
   initial: { scale: 1, y: 0, opacity: 0 },
@@ -13,7 +15,7 @@ const logoVariants = {
   }
 };
 
-const Header = () => (
+const Header = ({ isAuthenticated, deauthenticate }) => (
   <>
     <head>
       <meta charSet="utf-8" />
@@ -41,9 +43,19 @@ const Header = () => (
         <li>
           <Link activeClassName="active" href="/contact"><a data-hover="Contact">Contact</a></Link>
         </li>
+        {isAuthenticated &&
+          <li onClick={deauthenticate}>
+            <a style={{ "cursor": "pointer" }}  data-hover="Sign Out">
+              Sign Out &nbsp;
+              </a>
+          </li>
+        }
       </ul>
     </nav>
   </ >
 );
+const mapStateToProps = (state) => (
+  { isAuthenticated: !!state.authentication.token }
+);
 
-export default Header;
+export default connect(mapStateToProps, actions)(Header);

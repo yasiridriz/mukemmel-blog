@@ -1,11 +1,12 @@
 import Header from './header';
 import Footer from './footer';
+import { connect } from 'react-redux';
+import actions from '../redux/action';
 
-
-const Layout = props => (
+const Layout = ({ children }) => (
   <>
       <Header />
-        {props.children}
+        {children}
         <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
           width="559.000000pt" height="614.000000pt" viewBox="0 0 559.000000 614.000000"
           preserveAspectRatio="xMidYMid meet" className="signature">
@@ -19,5 +20,8 @@ const Layout = props => (
       <Footer />
   </>
 );
+const mapStateToProps = (state) => (
+  {isAuthenticated: !!state.authentication.token}
+);
 
-export default Layout;
+export default connect(mapStateToProps, actions)(Layout);

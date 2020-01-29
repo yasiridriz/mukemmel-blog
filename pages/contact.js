@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 
 const titleVariants = {
     initial: { scale: 1.07, y: 0, opacity: 0 },
-    enter: { scale: 1, y: 0, opacity: 1, transition: { duration: .7, ease: [0.48, 0.15, 0.25, 0.96], when: "beforeChildren", delay: 0.2 } },
+    enter: { scale: 1, y: 0, opacity: 1, transition: { duration: .7, ease: [0.48, 0.15, 0.25, 0.96], when: "beforeChildren", staggerChildren: .2 } },
     exit: {
         scale: 0.6,
         y: 100,
@@ -17,7 +17,7 @@ const titleVariants = {
 };
 const contentVariants = {
     initial: { scale: 1, y: 60, opacity: 0 },
-    enter: { scale: 1, y: 0, opacity: 1, transition: { duration: 0.6, ease: [0.48, 0.15, 0.25, 0.96], staggerChildren: 0.5 } },
+    enter: { scale: 1, y: 0, opacity: 1, transition: { duration: .6, ease: [0.48, 0.15, 0.25, 0.96], delay: .5 } },
     exit: {
         scale: 0.6,
         y: 100,
@@ -35,7 +35,7 @@ export default function Contact() {
     const handleSubmit = (event) => {
         event.preventDefault();
         axioswal({
-            url: 'https://api-yasiridriz.herokuapp.com/api/sendmail',
+            url: process.env.api_uri + process.env.sendmail,
             method: 'POST',
             data: {
                 name: name,

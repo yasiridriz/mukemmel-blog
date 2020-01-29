@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axioswal from 'axioswal';
 import Router from 'next/router';
 import CKEditor from "ckeditor4-react";
 import { motion } from 'framer-motion';
 import fetch from 'isomorphic-unfetch';
+import {connect} from 'react-redux';
 
 
 const titleVariants = {
@@ -28,20 +29,20 @@ const contentVariants = {
 }
 
 
-const Update = props => {
+const Update = ({post, isAuthenticated}) => {
 
-    const [title, setTitle] = useState(props.post.title);
-    const [content, setContent] = useState(props.post.content);
-    const [banner, setBanner] = useState(props.post.banner);
+    const [title, setTitle] = useState(post.title);
+    const [content, setContent] = useState(post.content);
+    const [banner, setBanner] = useState(post.banner);
     const handleSubmit = (event) => {
         event.preventDefault();
-        axioswal.post(`https://api-yasiridriz.herokuapp.com/api/update/${props.post._id}`, {
+        axioswal.post(process.env.api_uri + process.env.api_update + `/${post._id}`, {
             title: title,
             content: content,
         }).then((data) => {
             if (data.status === 'ok') {
+                Router.push(`/blog/${post._id}`)
             }
-            Router.push(`/blog/${props.post._id}`)
         }).catch((err) => {
             console.log("Api call unsucessfull", err);
         })
@@ -49,40 +50,41 @@ const Update = props => {
 
 
     return (
+        <div>
+            {(isAuthenticated && (
+                <motion.div initial="initial" animate="enter" exit="exit" variants={titleVariants} className="box">
 
-        <motion.div initial="initial" animate="enter" exit="exit" variants={titleVariants} className="box">
-
-            <motion.h3 initial="initial" animate="enter" exit="exit" variants={titleVariants} className="title">
-                <span>Write a new blog post:</span>
-            </motion.h3>
-            <motion.div initial="initial" animate="enter" exit="exit" variants={contentVariants} className="form-box">
-                <form onSubmit={handleSubmit} className="form-box">
-                    <div className="row">
-                        <div className="col-md-12">
-                            <div className="group">
-                                <input className="input-default" type="text" value={title}
-                                    onChange={e => { setTitle(e.target.value); }} required />
-                                <label htmlFor="title">Title</label>
-                            </div>
-                            {/* <div className="group" style={{ "background": "#f1f1f1" }}>
+                    <motion.h3 initial="initial" animate="enter" exit="exit" variants={titleVariants} className="title">
+                        <span>Write a new blog post:</span>
+                    </motion.h3>
+                    <motion.div initial="initial" animate="enter" exit="exit" variants={contentVariants} className="form-box">
+                        <form onSubmit={handleSubmit} className="form-box">
+                            <div className="row">
+                                <div className="col-md-12">
+                                    <div className="group">
+                                        <input className="input-default" type="text" value={title}
+                                            onChange={e => { setTitle(e.target.value); }} required />
+                                        <label htmlFor="title">Title</label>
+                                    </div>
+                                    {/* <div className="group" style={{ "background": "#f1f1f1" }}>
                                 <input type="file" className="browse-btn" accept=".epub, application/pdf" name="file" />
                                 <div className="browse-btn">
                                     Upload banner
                                     </div>
                                 <span className="file-info">...</span>
                             </div> */}
-                            <div className="group">
-                                <input className="input-default" type="text" value={banner}
-                                    onChange={e => { setBanner(e.target.value); }} required />
-                                <label htmlFor="banner">Banner</label>
-                            </div>
-                            <br />
-                            <div className="">
-                                <CKEditor
-                                    data={content}
-                                    onChange={e => setContent(e.editor.getData())}
-                                />
-                                {/* <div className="">
+                                    <div className="group">
+                                        <input className="input-default" type="text" value={banner}
+                                            onChange={e => { setBanner(e.target.value); }} required />
+                                        <label htmlFor="banner">Banner</label>
+                                    </div>
+                                    <br />
+                                    <div className="">
+                                        <CKEditor
+                                            data={content}
+                                            onChange={e => setContent(e.editor.getData())}
+                                        />
+                                        {/* <div className="">
                                     <textarea
                                         value={content}
                                         onChange={e => {setContent(e.target.value);}} className="input-default" style={{ "width": "100%" }}>
@@ -91,23 +93,30 @@ const Update = props => {
                                 </div> */}
 
 
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                            <div className="group">
+                                <button type="submit" className="btn-main">Save</button>
+                            </div>
+                        </form>
+                    </motion.div>
+                    <script type="text/javascript" src="/static/scripts/filebrowser.js"></script>
+                </motion.div>
+            )) || (
+                    <div className="section">
+                        <h3>You are not authorized to view this page</h3>
                     </div>
-                    <div className="group">
-                        <button type="submit" className="btn-main">Save</button>
-                    </div>
-                </form>
-            </motion.div>
-            <script type="text/javascript" src="/static/scripts/filebrowser.js"></script>
-        </motion.div>
+                )
+            }
+        </div>
 
     );
 };
 Update.getInitialProps = async ({ req, query }) => {
     // http://localhost:4000/api/
     // https://api-yasiridriz.herokuapp.com/api/
-    const res = await fetch(`https://api-yasiridriz.herokuapp.com/api/${query.id}`, {
+    const res = await fetch(process.env.api_uri + query.id, {
         method: 'get',
         dataType: 'json',
         headers: {
@@ -123,6 +132,8 @@ Update.getInitialProps = async ({ req, query }) => {
         post: data
     };
 };
-
-export default Update;
+const mapStateToProps = (state) => (
+    { isAuthenticated: !!state.authentication.token }
+);
+export default connect(mapStateToProps)(Update);
 

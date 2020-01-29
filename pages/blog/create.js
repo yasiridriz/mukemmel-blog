@@ -3,6 +3,8 @@ import axioswal from 'axioswal';
 import Router from 'next/router';
 import { motion } from 'framer-motion';
 import CKEditor from "ckeditor4-react";
+import { connect } from 'react-redux';
+
 
 const titleVariants = {
     initial: { scale: 1.07, y: 0, opacity: 0 },
@@ -26,13 +28,13 @@ const contentVariants = {
 }
 
 
-const CreatePost = () => {
-    const [title, setTitle] = useState(''); 
+const CreatePost = ({ isAuthenticated }) => {
+    const [title, setTitle] = useState('');
     const [banner, setBanner] = useState('');
     const [content, setContent] = useState('');
     const handleSubmit = (event) => {
         event.preventDefault();
-        axioswal.post('https://api-yasiridriz.herokuapp.com/api/add', {
+        axioswal.post(process.env.api_uri + process.env.api_add, {
             title: title,
             banner: banner,
             content: content,
@@ -44,67 +46,59 @@ const CreatePost = () => {
             console.log("Api call unsucessfull", err);
         })
     };
-    const uploadFile = (event) => {
-
-    }
 
     return (
+        <div>
+            {(isAuthenticated && (
+                <motion.div initial="initial" animate="enter" exit="exit" variants={titleVariants} className="box">
 
-        <motion.div initial="initial" animate="enter" exit="exit" variants={titleVariants} className="box">
-            <motion.h3 initial="initial" animate="enter" exit="exit" variants={titleVariants} className="title">
-                <span>New Post:</span>
-            </motion.h3>
-            <motion.div initial="initial" animate="enter" exit="exit" variants={contentVariants} className="form-box">
-                <form onSubmit={handleSubmit} className="form-box">
-                    <div className="row">
-                        <div className="col-md-12">
-                            <div className="group">
-                                <input className="input-default" type="text" value={title}
-                                    onChange={e => setTitle(e.target.value)} required />
-                                <label htmlFor="title">Title</label>
-                            </div>
-                            <div className="group">
-                                <input className="input-default" type="text" value={banner}
-                                    onChange={e => setBanner(e.target.value)} required />
-                                <label htmlFor="banner">Banner</label>
-                            </div>
-                            {/* <div className="group" style={{ "background": "#f1f1f1" }}>
-                                <input type="file" className="browse-btn" onChange={uploadFile} accept=".epub, application/pdf" name="file" />
-                                <div className="browse-btn">
-                                    Upload banner
+                    <motion.h3 initial="initial" animate="enter" exit="exit" variants={titleVariants} className="title">
+                        <span>New Post:</span>
+                    </motion.h3>
+                    <motion.div initial="initial" animate="enter" exit="exit" variants={contentVariants} className="form-box">
+                        <form onSubmit={handleSubmit} className="form-box">
+                            <div className="row">
+                                <div className="col-md-12">
+                                    <div className="group">
+                                        <input className="input-default" type="text" value={title}
+                                            onChange={e => setTitle(e.target.value)} required />
+                                        <label htmlFor="title">Title</label>
                                     </div>
-                                <span className="file-info">...</span>
-                            </div> */}
-                            <br />
-                            <div className="">
-                                <CKEditor
-                                    data={content}
-                                    onChange={e => setContent(e.editor.getData())}
-                                />
-                                {/*                                 
-                                // <div className="">
-                                //     <textarea
-                                //         value={content}
-                                //         onChange={e => setContent(e.target.value)} className="input-default" style={{ "width": "100%" }}>
+                                    <div className="group">
+                                        <input className="input-default" type="text" value={banner}
+                                            onChange={e => setBanner(e.target.value)} required />
+                                        <label htmlFor="banner">Banner</label>
+                                    </div>
 
-                                //     </textarea>
-                                // </div> */}
-
-
+                                    <br />
+                                    <div className="">
+                                        <CKEditor
+                                            data={content}
+                                            onChange={e => setContent(e.editor.getData())}
+                                        />
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div className="group">
-                        <button type="submit" className="btn-main">Save</button>
-                    </div>
-                </form>
-            </motion.div>
-            <script type="text/javascript" src="/static/scripts/filebrowser.js"></script>
-        </motion.div>
+                            <div className="group">
+                                <button type="submit" className="btn-main">Save</button>
+                            </div>
+                        </form>
+                    </motion.div>
+                </motion.div>
 
-    );
+            )) || (
+                    <div className="section">
+                        <h3>You are not authorized to view this page</h3>
+                    </div>
+                )}
+
+        </div>
+    )
 };
+const mapStateToProps = (state) => (
+    { isAuthenticated: !!state.authentication.token }
+);
 
 
-export default CreatePost;
+export default connect(mapStateToProps)(CreatePost);
 

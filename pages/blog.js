@@ -2,10 +2,11 @@ import Link from 'next/link';
 import fetch from 'isomorphic-unfetch';
 import { motion } from 'framer-motion';
 import moment from 'moment';
+import { connect } from 'react-redux';
 
 const titleVariants = {
   initial: { scale: 1.07, y: 0, opacity: 0 },
-  enter: { scale: 1, y: 0, opacity: 1, transition: { duration: .7, ease: [0.48, 0.15, 0.25, 0.96], when: "beforeChildren", delay: 0.2 } },
+  enter: { scale: 1, y: 0, opacity: 1, transition: { duration: .7, ease: [0.48, 0.15, 0.25, 0.96], when: "beforeChildren", staggerChildren: 0.2 } },
   exit: {
     scale: 0.6,
     y: 100,
@@ -15,7 +16,7 @@ const titleVariants = {
 };
 const contentVariants = {
   initial: { scale: 1, y: 60, opacity: 0 },
-  enter: { scale: 1, y: 0, opacity: 1, transition: { duration: 0.6, ease: [0.48, 0.15, 0.25, 0.96], staggerChildren: 0.5, delay: .2 } },
+  enter: { scale: 1, y: 0, opacity: 1, transition: { duration: .6, ease: [0.48, 0.15, 0.25, 0.96], delay: .5  } },
   exit: {
     scale: 0.6,
     y: 100,
@@ -29,20 +30,30 @@ const truncate = function (str) {
 }
 
 
-const PostList = props => (
+const PostList = ({ data, isAuthenticated }) => (
   <motion.div initial="initial" animate="enter" exit="exit" variants={titleVariants} className="containter">
-    <Link href="/blog/create"><a className="btn-main noborder"><span className="fab fa"></span>Write a post</a></Link>
+    {isAuthenticated && <Link href="/blog/create"><a className="btn-main noborder"><span className="fab fa"></span>Write a post</a></Link>}
     <motion.h1 initial="initial" animate="enter" exit="exit" variants={titleVariants} className="bigtitle"><span>Blog</span></motion.h1>
     <motion.div initial="initial" animate="enter" exit="exit" variants={{ initial: { scale: 1.07, y: 0, opacity: 0 }, enter: { scale: 1, y: 0, opacity: 1, transition: { duration: .7, ease: [0.48, 0.15, 0.25, 0.96], staggerChildren: 0.2 } }, }} >
-      {props.data.map(post => (
+      <span className="input input--nao">
+        <input className="input__field input__field--nao" type="text" id="input-1" placeholder="Search" />
+        <svg className="graphic graphic--nao" width="300%" height="100%" viewBox="0 0 1200 60"
+          preserveAspectRatio="none">
+          <path
+            d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0" />
+        </svg>
+      </span>
+      <br />
+      <br />
+      {data.map(post => (
         <Link href="/blog/[id]" as={`/blog/${post._id}`} key={post.id}>
           <a className="noborder">
             <motion.div initial="initial" animate="enter" exit="exit" variants={contentVariants} key={post._id} className="postItem row">
-              <div className="col-md-4" >
+              <div className="col-xs-12 col-md-4 col-md-push-4" >
                 <img src={post.banner}>
                 </img>
               </div>
-              <div className="col-md-8">
+              <div className="col-xs-12 col-md-8 col-md-push-8">
 
                 <h2>{truncate(post.title)}</h2>
                 <span className="updated">- {moment(post.updated).fromNow()}</span>
@@ -58,7 +69,7 @@ const PostList = props => (
 );
 
 PostList.getInitialProps = async function () {
-  const res = await fetch('https://api-yasiridriz.herokuapp.com/api', {
+  const res = await fetch(process.env.api_uri, {
     method: 'get',
     dataType: 'json',
     headers: {
@@ -74,5 +85,7 @@ PostList.getInitialProps = async function () {
     data: data
   };
 };
-
-export default PostList;
+const mapStateToProps = (state) => (
+  { isAuthenticated: !!state.authentication.token }
+);
+export default connect(mapStateToProps)(PostList);

@@ -21,7 +21,7 @@ html {
     background-color: #fed500;
     position: relative;
     z-index: -2;
-    padding:0;
+    padding: 0;
 }
 
 body {
@@ -29,7 +29,7 @@ body {
     padding: 300px 15% 300px 15%;
     position: relative;
     z-index: -2;
-    margin:5px;
+    margin: 5px;
 
 }
 
@@ -41,6 +41,17 @@ footer {
     width: 100%;
     margin: 0;
     padding: 0;
+}
+
+.section {
+    min-height: 100vh;
+}
+
+.section > .sectioncontent {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 @media screen and (max-width:800px) {}
@@ -366,9 +377,9 @@ p {
     padding: 1em;
     border: 4px transparent solid;
     position: relative;
-    background-color:#fff;
+    background-color: #fff;
     text-shadow: 4px 4px #fff;
-
+    height: auto;
 }
 
 .postItem h2 {
@@ -381,9 +392,11 @@ p {
     display: inline-block;
     transform: translateY(-1em);
 }
+
 .postItem .col-md-8 {
     display: inline-block;
 }
+
 .postItem .col-md-4 {
     display: inline-block;
     position: relative;
@@ -400,8 +413,9 @@ p {
     transition: .25s all;
     right: 10%;
 }
+
 .postItem:hover img {
-    transform:  translateY(-50%) scale(1.1);
+    transform: translateY(-50%) scale(1.1);
 }
 
 .project-box {
@@ -437,7 +451,7 @@ p {
 }
 
 .post-containter {
-    
+
     display: block;
     margin: 0 auto;
 }
@@ -449,21 +463,28 @@ p {
     font-family: 'Oswald', Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
-.postContent h1
-{
+.postContent h1 {
     font-family: 2.2rem;
     font-family: 'PT Serif', serif;
 }
+
+.post-containter .bannerWrapper {
+    max-height: 100vh;
+    overflow: hidden;
+}
+
 .post-containter .banner {
-    width: 80vw;
+    max-width: 80vw;
     position: relative;
     left: 50%;
     right: 50%;
     margin-left: -40vw;
     margin-right: -40vw;
+
 }
+
 .post-containter .postContent {
-    width:70%;
+    width: 70%;
     line-height: 2.1rem;
     letter-spacing: .04em;
     font-size: 1.5rem;
@@ -522,34 +543,32 @@ p {
     -moz-text-stroke-width: 2px;
     -webkit-text-stroke-color: #000;
     -moz-text-stroke-color: #000;
-    color: #fed500;
+    color: transparent;
+    text-shadow: 4px 4px #fed500;
     display: block;
     margin: 0 auto;
     position: relative;
-    top:10%;
-    transform:translateY(-50%);
-    left:5%;
+    top: 10%;
+    transform: translateY(-50%);
+    left: 5%;
     font-size: 4rem;
     font-family: 'Oswald', Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-weight: 700;
     transition: all .25s;
     cursor: default;
 }
-.landing .message:hover {
-    color:transparent;
-    text-shadow: 4px 4px #fed500;
 
-}
 .landing .sigcontainer {
     display: block;
     position: absolute;
-    right:0;
-    bottom:5%;
+    right: 0;
+    bottom: 5%;
 }
+
 .landing .svg.signature {
-    width:600px !important;
-    height:400px !important;
-    top:0;
+    width: 600px !important;
+    height: 400px !important;
+    top: 0;
 }
 
 svg.signature {
@@ -593,4 +612,3 @@ path.signature {
         fill: #00000022;
     }
 }
-

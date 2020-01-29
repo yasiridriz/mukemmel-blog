@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import fetch from "isomorphic-unfetch";
 import axioswal from "axioswal";
 import Swal from "sweetalert2"
 import { motion } from 'framer-motion';
 import Router from "next/router";
-import Link from 'next/link'
+import Link from 'next/link';
+import { connect } from 'react-redux';
 
 const titleVariants = {
   initial: { scale: 1.07, y: 0, opacity: 0 },
@@ -27,7 +28,7 @@ const contentVariants = {
   },
 }
 
-const Post = props => {
+const Post = ({ post, isAuthenticated }) => {
   const deletePost = (e) => {
     e.preventDefault();
     Swal.fire({
@@ -39,7 +40,7 @@ const Post = props => {
       confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.value) {
-        axioswal.post(`https://api-yasiridriz.herokuapp.com/api/delete/${props.post._id}`, {
+        axioswal.post(process.env.api_uri + process.env.api_delete + `/${post._id}`, {
         }).then((data) => {
           if (data.status === "ok") {
 
@@ -56,21 +57,24 @@ const Post = props => {
 
   return (
     <motion.div initial="initial" animate="enter" exit="exit" variants={titleVariants} className="post-containter">
-      <div className="inlinebuttons">
-        <p>
-          <button type="button" onClick={deletePost} className="btn-main"><span class="far fa-trash-alt"></span> Delete Post </button>
-        </p>
-        <p>
-          <Link href="/blog/update/[id]" as={`/blog/update/${props.post._id}`} ><a className="btn-main noborder"><span class="far fa-edit"> </span> Update Post </a></Link>
-        </p>
-      </div>
-
+      {isAuthenticated &&
+        <div className="inlinebuttons">
+          <p>
+            <button type="button" onClick={deletePost} className="btn-main"><span class="far fa-trash-alt"></span> Delete Post </button>
+          </p>
+          <p>
+            <Link href="/blog/update/[id]" as={`/blog/update/${post._id}`} ><a className="btn-main noborder"><span class="far fa-edit"> </span> Update Post </a></Link>
+          </p>
+        </div>
+      }
       <div>
-        <img className="banner" src={props.post.banner}></img>
-        <h1 className="title"> {props.post.title} </h1>
-        <h4 style={{ "font": "'PT Serif', serif", "color": "#555" }}> {props.post.subtitle}</h4>
-        <div dangerouslySetInnerHTML={{__html: props.post.content}} class="postContent">
-          
+        <div className="bannerWrapper">
+          <img className="banner" src={post.banner}></img>
+        </div>
+        <h1 className="title"> {post.title} </h1>
+        <h4 style={{ "font": "'PT Serif', serif", "color": "#555" }}> {post.subtitle}</h4>
+        <div dangerouslySetInnerHTML={{ __html: post.content }} class="postContent">
+
         </div>
       </div>
     </motion.div>
@@ -80,7 +84,7 @@ const Post = props => {
 Post.getInitialProps = async ({ req, query }) => {
   // http://localhost:4000/api/
   // https://api-yasiridriz.herokuapp.com/api/
-  const res = await fetch(`https://api-yasiridriz.herokuapp.com/api/${query.id}`, {
+  const res = await fetch(process.env.api_uri + query.id, {
     method: 'get',
     dataType: 'json',
     headers: {
@@ -96,5 +100,7 @@ Post.getInitialProps = async ({ req, query }) => {
     post: data
   };
 };
-
-export default Post;
+const mapStateToProps = (state) => (
+  { isAuthenticated: !!state.authentication.token }
+);
+export default connect(mapStateToProps)(Post);

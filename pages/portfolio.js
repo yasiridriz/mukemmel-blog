@@ -1,6 +1,6 @@
-import Layout from '../components/layout';
-import Link from 'next/link';
 import { motion } from 'framer-motion';
+
+
 const titleVariants = {
   initial: { scale: 1.07, y: 0, opacity: 0 },
   enter: { scale: 1, y: 0, opacity: 1, transition: { duration: .7, ease: [0.48, 0.15, 0.25, 0.96], when: "beforeChildren", staggerChildren: 0.2 } },
@@ -13,7 +13,7 @@ const titleVariants = {
 };
 const contentVariants = {
   initial: { scale: 1, y: 60, opacity: 0 },
-  enter: { scale: 1, y: 0, opacity: 1, transition: { duration: 0.6, ease: [0.48, 0.15, 0.25, 0.96], delay: 0.5 } },
+  enter: { scale: 1, y: 0, opacity: 1, transition: { duration: .6, ease: [0.48, 0.15, 0.25, 0.96], delay: .5 } },
   exit: {
     scale: 0.6,
     y: 100,
@@ -21,19 +21,7 @@ const contentVariants = {
     transition: { duration: 0.25, ease: [0.48, 0.15, 0.25, 0.96] }
   },
 }
-const imageVariants = {
-  initial: { x: -300, opacity: 0 },
-  enter: {
-    x: 0,
-    opacity: 1,
-    transition: { duration: .8, ease: [0.48, 0.15, 0.25, 0.96] }
-  },
-  exit: {
-    x: 300,
-    opacity: 0,
-    transition: { duration: 0.25, ease: [0.48, 0.15, 0.25, 0.96] }
-  }
-}
+
 
 export default function Portfolio() {
   return (
@@ -47,7 +35,7 @@ export default function Portfolio() {
               <a className="doubledLink" target="_blank" href="http://fshi.unt.edu.mk">fshi.unt.edu.mk <span className="shift extlink"><sup>&#8599;</sup></span></a>
             </h2>
             <div className="row">
-              <motion.img initial="initial" animate="enter" exit="exit" variants={imageVariants} src="../static/images/portfolio/fshi-home.png"></motion.img>
+              <img src="../static/images/portfolio/fshi-home.png"></img>
 
               <p>
                 Website for the <br />Faculty of Informatic Sciences at University of Mother Teresa - Skopje
