@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axioswal from 'axioswal';
 import { motion } from 'framer-motion';
 import Router from 'next/router';
+import { connect } from 'react-redux';
 
 const titleVariants = {
     initial: { scale: 1.07, y: 0, opacity: 0 },
@@ -24,7 +25,7 @@ const contentVariants = {
     },
 }
 
-const Register = () => {
+const Register = ({ isAuthenticated }) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -46,38 +47,49 @@ const Register = () => {
     };
 
     return (
-        <motion.div initial="initial" animate="enter" exit="exit" variants={titleVariants} className="box">
-            <motion.h3 initial="initial" animate="enter" exit="exit" variants={titleVariants} className="title">
-                <span>New User:</span>
-            </motion.h3>
-            <motion.div initial="initial" animate="enter" exit="exit" variants={contentVariants} className="form-box">
-                <div className="form-box col-md-12">
-                    <form onSubmit={handleSubmit} method="POST" className="form-box">
-                        <div className="group">
-                            <input type="email" value={email}
-                                onChange={e => setEmail(e.target.value)} className="input-default" required />
-                            <label>Email </label>
-                        </div>
-                        <div className="group">
-                            <input value={password}
-                                onChange={e => setPassword(e.target.value)} type="password" className="input-default" required />
-                            <label>Password</label>
-                        </div>
-                        <div className="group">
-                            <input value={password2}
-                                onChange={e => setPassword2(e.target.value)} type="password" className="input-default" required />
-                            <label>Confirm Password</label>
-                        </div>
-                        <div className="group">
-                            <button type="submit" className="btn-main" >
-                                Save
+        <div>
+            {isAuthenticated && (
+                <motion.div initial="initial" animate="enter" exit="exit" variants={titleVariants} className="box">
+                    <motion.h3 initial="initial" animate="enter" exit="exit" variants={titleVariants} className="title">
+                        <span>New User:</span>
+                    </motion.h3>
+                    <motion.div initial="initial" animate="enter" exit="exit" variants={contentVariants} className="form-box">
+                        <div className="form-box col-md-12">
+                            <form onSubmit={handleSubmit} method="POST" className="form-box">
+                                <div className="group">
+                                    <input type="email" value={email}
+                                        onChange={e => setEmail(e.target.value)} className="input-default" required />
+                                    <label>Email </label>
+                                </div>
+                                <div className="group">
+                                    <input value={password}
+                                        onChange={e => setPassword(e.target.value)} type="password" className="input-default" required />
+                                    <label>Password</label>
+                                </div>
+                                <div className="group">
+                                    <input value={password2}
+                                        onChange={e => setPassword2(e.target.value)} type="password" className="input-default" required />
+                                    <label>Confirm Password</label>
+                                </div>
+                                <div className="group">
+                                    <button type="submit" className="btn-main" >
+                                        Save
                             </button>
+                                </div>
+                            </form>
                         </div>
-                    </form>
-                </div>
-            </motion.div>
-        </motion.div>
+                    </motion.div>
+                </motion.div>
+            ) || (
+                <div className="section">
+                <h3>You are not authorized to view this page</h3>
+            </div>
+            )}
+        </div>
+
     );
 };
-
-export default Register;
+const mapStateToProps = (state) => (
+    { isAuthenticated: !!state.authentication.token }
+);
+export default connect(mapStateToProps)(Register);
