@@ -97,7 +97,8 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-
+  -webkit-appearance: none;
+  border-radius: 0;
 }
 
 textarea.input-default {

@@ -21,7 +21,7 @@ const Header = ({ isAuthenticated, deauthenticate }) => (
       <meta charSet="utf-8" />
       <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
       <title>Yasir Idriz</title>
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta content="width=device-width, initial-scale=1" name="viewport" />
       <link rel="stylesheet" type="text/css" media="screen" href="/static/stylesheets/importer.css" />
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
         integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossOrigin="anonymous" />
@@ -45,7 +45,7 @@ const Header = ({ isAuthenticated, deauthenticate }) => (
         </li>
         {isAuthenticated &&
           <li onClick={deauthenticate}>
-            <a style={{ "cursor": "pointer" }}  data-hover="Sign Out">
+            <a style={{ "cursor": "pointer" }} data-hover="Sign Out">
               Sign Out &nbsp;
               </a>
           </li>

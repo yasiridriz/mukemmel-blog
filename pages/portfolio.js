@@ -29,17 +29,25 @@ export default function Portfolio() {
       <motion.h1 initial="initial" animate="enter" exit="exit" variants={titleVariants} className="bigtitle"><span>Projects</span></motion.h1>
 
       <motion.div initial="initial" animate="enter" exit="exit" variants={contentVariants}>
+        <a href="http://localhost:3000/static/images/portfolio/CV.pdf" target="_blank" className="btn-main noborder">See my CV </a>
+        <br />
+        <br />
         <a href="http://fshi.unt.edu.mk" className="noborder" target="_blank">
           <div className="box project-box">
             <h2 className="title right">
               <a className="doubledLink" target="_blank" href="http://fshi.unt.edu.mk">fshi.unt.edu.mk <span className="shift extlink"><sup>&#8599;</sup></span></a>
             </h2>
             <div className="row">
-              <img src="../static/images/portfolio/fshi-home.png"></img>
+              <div className="col-xs-12 col-md-6 col-md-push-6">
+                <img src="../static/images/portfolio/fshi-home.png"></img>
+              </div>
+              <div className="col-xs-12 col-md-6 col-md-push-6">
+                <h1 style={{ "font-family": "'Playfair Display', serif" }}>
+                  Website for the <br />Faculty of Informatic Sciences at University of Mother Teresa - Skopje
+                </h1>
+              </div>
 
-              <p>
-                Website for the <br />Faculty of Informatic Sciences at University of Mother Teresa - Skopje
-            </p>
+
             </div>
             <p>
 

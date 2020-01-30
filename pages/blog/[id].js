@@ -5,7 +5,10 @@ import Swal from "sweetalert2"
 import { motion } from 'framer-motion';
 import Router from "next/router";
 import Link from 'next/link';
+import moment from 'moment';
 import { connect } from 'react-redux';
+import Disqus from 'disqus-react';
+import { useRouter } from 'next/router'
 
 const titleVariants = {
   initial: { scale: 1.07, y: 0, opacity: 0 },
@@ -53,6 +56,13 @@ const Post = ({ post, isAuthenticated }) => {
       }
     })
   };
+  const router = useRouter()
+  const disqusShortname = 'yasiridriz';
+  const disqusConfig = {
+    url: 'https://yasiridriz.herokuapp.com' + router.pathname,
+    identifier: post._id,
+    title: post.title,
+  };
 
 
   return (
@@ -72,10 +82,14 @@ const Post = ({ post, isAuthenticated }) => {
           <img className="banner" src={post.banner}></img>
         </div>
         <h1 className="title"> {post.title} </h1>
+        <p style={{"text-align": "right"}}>{moment(post.updated).format('MMMM Do YYYY')}</p>
         <h4 style={{ "font": "'PT Serif', serif", "color": "#555" }}> {post.subtitle}</h4>
         <div dangerouslySetInnerHTML={{ __html: post.content }} class="postContent">
 
         </div>
+        <h1 className="title"></h1>
+
+        <Disqus.DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />
       </div>
     </motion.div>
   )

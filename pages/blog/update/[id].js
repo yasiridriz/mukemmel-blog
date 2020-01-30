@@ -39,7 +39,8 @@ const Update = ({post, isAuthenticated}) => {
         axioswal.post(process.env.api_uri + process.env.api_update + `/${post._id}`, {
             title: title,
             content: content,
-            banner: banner
+            banner: banner,
+            updated: Date.now()
         }).then((data) => {
             if (data.status === 'ok') {
                 Router.push(`/blog/${post._id}`)

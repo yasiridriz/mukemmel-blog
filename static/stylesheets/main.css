@@ -47,25 +47,13 @@ footer {
     min-height: 100vh;
 }
 
-.section > .sectioncontent {
+.section>.sectioncontent {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
-@media screen and (max-width:800px) {}
-
-@media screen and (max-width:1145px) {
-    li.search {
-        float: left;
-        margin: 0;
-    }
-
-    body {
-        padding: 350px 10vw 300px 5vw;
-    }
-}
 
 
 h2,
@@ -393,15 +381,6 @@ p {
     transform: translateY(-1em);
 }
 
-.postItem .col-md-8 {
-    display: inline-block;
-}
-
-.postItem .col-md-4 {
-    display: inline-block;
-    position: relative;
-    padding: 0 1em 0 0;
-}
 
 .postItem img {
     display: block;
@@ -420,14 +399,12 @@ p {
 
 .project-box {
     position: relative;
-
+    padding-top: 5em;
 }
 
 .project-box img {
-    width: 60%;
-    height: 60%;
-    margin-top: -8%;
-    margin-left: -10%;
+    max-width: 100%;
+    max-height: 100%;
     box-shadow: #000 10px 10px;
     transition: all .2s;
     display: block;
@@ -435,19 +412,13 @@ p {
 
 .project-box:hover img {
     box-shadow: #000 15px 15px;
-    width: 61%;
-    height: 61%;
+    /* width: 61%;
+    height: 61%; */
 }
 
-.project-box p {
-    position: absolute;
-    right: 5%;
-    top: 50%;
-    transform: translateY(-50%);
-    display: block;
-    width: 40%;
+.project-box h1 {
     font-size: 2.5vw;
-    font-family: 'Playfair Display', serif;
+    font-weight: 300;
 }
 
 .post-containter {
@@ -478,7 +449,7 @@ p {
     max-width: 80vw;
     position: relative;
     display: block;
-    margin:0 auto;
+    margin: 0 auto;
 }
 
 .post-containter .postContent {
@@ -552,7 +523,7 @@ p {
     top: 10%;
     transform: translateY(-50%);
     left: 5%;
-    font-size: 4rem;
+    font-size: 4em;
     font-family: 'Oswald', Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-weight: 700;
     transition: all .25s;
@@ -583,7 +554,7 @@ svg.signature {
 
 path.signature {
     fill: none;
-    stroke: #00000033;
+    stroke: #00000001;
     stroke-width: 20;
     stroke-linecap: round;
     stroke-linejoin: round;
@@ -611,5 +582,54 @@ path.signature {
         stroke-dashoffset: 0;
         stroke-width: 20;
         fill: #00000022;
+    }
+}
+@media screen and (max-width:740px) {
+    .landing .message {
+        font-size: 2rem;
+    }
+    .landing .title {
+        font-size:1.4rem;
+    }
+    .project-box {
+        padding-top: 2em;
+    }
+    .box {
+        padding: 2em 1em;
+    }
+    
+    
+}
+@media screen and (max-width:940px) {
+    .landing .message {
+        font-size: 3rem;
+        text-shadow: 2px 2px #fed500;
+
+    }
+    .project-box img {
+        max-width: 100%;
+        max-height: 100%;
+        box-shadow: #000 10px 10px;
+        transition: all .2s;
+        display: block;
+    }
+    .project-box h1 {
+        margin-top:2em;
+        font-size: 1.7rem;
+        font-weight: 300;
+    }
+    .postItem {
+        padding-bottom:3em
+    }
+}
+
+@media screen and (max-width:1145px) {
+    body {
+        padding: 350px 4vw 300px 4vw;
+    }
+}
+@media screen and (min-width: 940px) {
+    .obsessedwithnewline {
+        display: none;
     }
 }
