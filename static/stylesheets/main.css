@@ -461,6 +461,7 @@ p {
     border-bottom: 2px #000 solid;
     padding-bottom: 1em;
     font-family: 'Oswald', Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    text-align: center;
 }
 
 .postContent h1 {
@@ -476,11 +477,8 @@ p {
 .post-containter .banner {
     max-width: 80vw;
     position: relative;
-    left: 50%;
-    right: 50%;
-    margin-left: -40vw;
-    margin-right: -40vw;
-
+    display: block;
+    margin:0 auto;
 }
 
 .post-containter .postContent {
@@ -488,6 +486,9 @@ p {
     line-height: 2.1rem;
     letter-spacing: .04em;
     font-size: 1.5rem;
+    display: block;
+    margin: 0 auto;
+
 }
 
 .inlinebuttons p {
