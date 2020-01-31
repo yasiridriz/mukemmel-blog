@@ -253,6 +253,7 @@ a:hover .doubledLink {
     border-radius: .3rem;
     background-color: #fed500;
     font-size: 1.4rem;
+    text-align: center;
     cursor: pointer;
     outline: none;
 }
@@ -361,42 +362,64 @@ p {
 
 .postItem {
     box-sizing: border-box;
-    margin: 2em 0;
     padding: 1em;
     border: 4px transparent solid;
     position: relative;
     background-color: #fff;
     text-shadow: 4px 4px #fff;
     height: auto;
+    margin: 0 auto 2em auto;
+    display: block;
+    
 }
 
 .postItem h2 {
     font-family: 'Playfair Display', serif;
     font-weight: 700;
-    vertical-align: top;
+    vertical-align: middle;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .postItem .updated {
     display: inline-block;
-    transform: translateY(-1em);
+    transform: translateY(-2.3em);
 }
 
 
-.postItem img {
+.postItem .imgContainer {
     display: block;
-    position: absolute;
-    max-width: 130%;
-    height: 130%;
-    top: 50%;
-    transform: translateY(-50%);
+    max-width: 100%;
+    height: 100%;
+    position: relative;
+    left: 40%;
+    transform: translateX(-30%);
     transition: .25s all;
-    right: 10%;
+
 }
 
-.postItem:hover img {
-    transform: translateY(-50%) scale(1.1);
+.postItem .imgContainer img {
+    max-height: 100%;
+    max-width: 100%;
+
 }
 
+.postItem:hover .imgContainer {
+    transform: translateX(-30%) scale(1.1);
+}
+
+.postItem .postDetails {
+    padding-left:3vw;
+    position: relative;
+    top: 30%;
+    height: 200px;
+    margin-top: -30px;
+    /* account for padding and border if not using box-sizing: border-box; */
+}
+
+.postItem .readmore a {
+    text-align: right;
+}
 .project-box {
     position: relative;
     padding-top: 5em;
@@ -468,10 +491,8 @@ p {
 
 .landing {
     position: relative;
-    min-width: 100%;
-    top: 0;
-    left: 0;
     display: block;
+    margin: auto auto;
 }
 
 .landing .name {
@@ -554,7 +575,7 @@ svg.signature {
 
 path.signature {
     fill: none;
-    stroke: #00000001;
+    stroke: #ffffff11;
     stroke-width: 20;
     stroke-linecap: round;
     stroke-linejoin: round;
@@ -584,27 +605,75 @@ path.signature {
         fill: #00000022;
     }
 }
+
 @media screen and (max-width:740px) {
+    body {
+        padding: 500px 4vw 300px 4vw !important;
+    }
+
+    .landing {
+        top: 0;
+        left: 0;
+    }
+
     .landing .message {
-        font-size: 2rem;
+        font-size: .8rem;
     }
+
     .landing .title {
-        font-size:1.4rem;
+        font-size: 1.4rem;
     }
+
     .project-box {
         padding-top: 2em;
     }
+
     .box {
         padding: 2em 1em;
     }
-    
-    
+
+    .btn-main {
+        margin: 0 auto;
+        display: block;
+    }
+
+    .nav ul li {
+        display: block;
+        margin: .5em auto;
+    }
+
+    .postItem .readmore a {
+        text-align: left;
+    }
+
+
+
+
 }
+
 @media screen and (max-width:940px) {
     .landing .message {
         font-size: 3rem;
         text-shadow: 2px 2px #fed500;
 
+    }
+
+    .project-box h1 {
+        margin-top: 2em;
+        font-size: 1.7rem;
+        font-weight: 300;
+    }
+
+    .postItem {
+        padding-bottom: 3em
+    }
+
+    .post-containter .postContent {
+        width: 100%;
+    }
+
+    .btn-main {
+        min-width: 200px;
     }
     .project-box img {
         max-width: 100%;
@@ -613,21 +682,30 @@ path.signature {
         transition: all .2s;
         display: block;
     }
-    .project-box h1 {
-        margin-top:2em;
-        font-size: 1.7rem;
-        font-weight: 300;
+    .postItem .imgContainer {
+        left: 50%;
+        transform: translateX(-50%);
     }
-    .postItem {
-        padding-bottom:3em
+
+    .postItem:hover .imgContainer {
+        transform: translateX(-50%) scale(1.06);
     }
+
 }
 
-@media screen and (max-width:1145px) {
+@media screen and (max-width:1250px) {
     body {
         padding: 350px 4vw 300px 4vw;
     }
+    .postItem .postDetails {
+        width:95%;
+        padding-left:10%;
+        left:0;
+        
+    }
+  
 }
+
 @media screen and (min-width: 940px) {
     .obsessedwithnewline {
         display: none;

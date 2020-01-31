@@ -43,7 +43,7 @@ const home = ({ post }) => {
   return (
     <motion.div initial="initial" animate="enter" exit="exit" variants={titleVariants} className="landing container">
       <div className="landing">
-        <motion.p initial="initial" animate="enter" exit="exit" variants={contentVariants} className="message"> Hi! My name is <span className="name">Yasir Idriz</span>, <br />a freshman at Gymnasium <br />"Zef Lush Marku" <br />- Skopje, N. Macedonia,<br /> obsessed with <br className="obsessedwithnewline"/><ReactRotatingText items={[`programming`, `basketball`, `swimming`, `learning`]} /></motion.p>
+        <motion.p initial="initial" animate="enter" exit="exit" variants={contentVariants} className="message"> Hi! My name is <span className="name">Yasir Idriz</span>, <br />a freshman at Gymnasium <br />"Zef Lush Marku" <br />- Skopje, N. Macedonia,<br /> obsessed with <br className="obsessedwithnewline" /><ReactRotatingText items={[`programming`, `basketball`, `swimming`, `learning`]} /></motion.p>
       </div>
       <br />
       <br />
@@ -85,14 +85,17 @@ const home = ({ post }) => {
           <a className="noborder">
             <motion.div initial="initial" animate="enter" exit="exit" variants={contentVariants} key={post._id} className="postItem row">
               <div className="col-xs-12 col-md-3 col-md-push-4" >
-                <img src={post[0].banner}>
-                </img>
+                <div className="imgContainer">
+                  <img src={post[0].banner}>
+                  </img>
+                </div>
               </div>
               <div className="col-xs-12 col-md-9 col-md-push-8">
-
-                <h2>{truncate(post[0].title)}</h2>
-                <span className="updated">- {moment(post.updated).fromNow()}</span>
-                <p><a style={{ "right": "15px", "bottom": "10px", "position": "absolute" }} className="doubledLink">Read more <span className="shift" >&rarr;</span></a></p>
+                <div className="postDetails">
+                  <h2>{truncate(post[0].title)}</h2>
+                  <span className="updated">- {moment(post.updated).fromNow()}</span>
+                  <p className="readmore"><a className="doubledLink"> Read more <span className="shift" >&rarr;</span></a></p>
+                </div>
               </div>
 
             </motion.div>

@@ -29,7 +29,7 @@ export default function Portfolio() {
       <motion.h1 initial="initial" animate="enter" exit="exit" variants={titleVariants} className="bigtitle"><span>Projects</span></motion.h1>
 
       <motion.div initial="initial" animate="enter" exit="exit" variants={contentVariants}>
-        <a href="http://localhost:3000/static/images/portfolio/CV.pdf" target="_blank" className="btn-main noborder">See my CV </a>
+        <a href="https://yasiridriz.herokuapp.com/static/images/portfolio/CV.pdf" target="_blank" className="btn-main noborder">See my CV </a>
         <br />
         <br />
         <a href="http://fshi.unt.edu.mk" className="noborder" target="_blank">

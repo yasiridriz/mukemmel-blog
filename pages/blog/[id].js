@@ -82,14 +82,18 @@ const Post = ({ post, isAuthenticated }) => {
           <img className="banner" src={post.banner}></img>
         </div>
         <h1 className="title"> {post.title} </h1>
-        <p style={{"text-align": "right"}}>{moment(post.updated).format('MMMM Do YYYY')}</p>
         <h4 style={{ "font": "'PT Serif', serif", "color": "#555" }}> {post.subtitle}</h4>
+        <div className="postContent">
+          <p style={{ "text-align": "right" }}>{moment(post.updated).format('MMMM Do YYYY')}</p>
+
+        </div>
         <div dangerouslySetInnerHTML={{ __html: post.content }} class="postContent">
 
         </div>
         <h1 className="title"></h1>
-
-        <Disqus.DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />
+        <div className="postContent">
+          <Disqus.DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />
+        </div>
       </div>
     </motion.div>
   )
