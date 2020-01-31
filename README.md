@@ -1,4 +1,4 @@
-Yasir Idriz kişisel inernet sitesi: yasiridriz.herokuapp.com 
+Yasir Idriz kişisel inernet sitesi: [yasiridriz.herokuapp.com](https://yasiridriz.herokuapp.com)
 
 
 ## Kullanılan Diller ve Frameworklar
